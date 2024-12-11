@@ -14,12 +14,14 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/*" element={<PrivetRoute />}>
-          <Route path="lessons" element={<LassonsPage />} />
-        </Route>
+      <Route path="/lessons" element={<LassonsPage />} />
+        {/* <Route path="/*" element={<PrivetRoute />}>
+         
+        </Route> */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/tutorials" element={<TutorialPage />} />
+        <Route path="/" element={<TutorialPage />} />
         <Route path="/404" element={<NotFound />} />
 
       </Routes>

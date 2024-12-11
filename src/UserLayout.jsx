@@ -1,6 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router";
 
-const UserLayout = ({ children }) => {
+const UserLayout = ({ children, userInfo }) => {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}
@@ -8,8 +10,15 @@ const UserLayout = ({ children }) => {
         <div className="flex justify-between items-center">
           <div className="text-lg font-bold">App Logo</div>
           <div className="space-x-4">
-            <a href="/lessons" className="hover:underline">Lessons</a>
-            <a href="/tutorials" className="hover:underline">Tutorials</a>
+            {
+              userInfo?.role && <Link to="/dashboard" className="hover:underline">Dashboard</Link>
+            }
+            {
+              userInfo?.role && <Link to="/lessons" className="hover:underline">Lessons</Link>
+            }
+            <Link to="/tutorials" className="hover:underline">Tutorials</Link>
+            <Link to="/login" className="hover:underline">Login</Link>
+            <Link to="/Register" className="hover:underline">Register</Link>
           </div>
         </div>
       </nav>
@@ -27,4 +36,8 @@ const UserLayout = ({ children }) => {
   );
 };
 
-export default UserLayout;
+
+function mapStateToProps(state) {
+  return { userInfo: state.auth?.userInfo }
+}
+export default connect(mapStateToProps, null)(UserLayout)

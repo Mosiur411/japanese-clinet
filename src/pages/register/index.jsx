@@ -6,8 +6,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useRegisterUserMutation } from "../../apps/features/auth/authApi";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import Button from "../../components/shared/Button";
 
 const RegisterPage = () => {
+    // react hook
+    const navigate = useNavigate();
+
     const [profilePhoto, setProfilePhoto] = useState(null);
     const [file, setfile] = useState(null);
     // rtk handel 
@@ -44,6 +49,7 @@ const RegisterPage = () => {
         if (isSuccess) {
             toast.success(data.message)
             reset()
+            navigate('/login')
         }
     }, [isError, isLoading, isSuccess])
 
@@ -140,13 +146,8 @@ const RegisterPage = () => {
                                 </div>
                             )}
                         </div>
-
-                        <button
-                            type="submit"
-                            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        >
-                            Register
-                        </button>
+                        <Button isLoading={isLoading} text="Register" />
+                        
                     </form>
 
                     <div className="mt-4 text-center">
