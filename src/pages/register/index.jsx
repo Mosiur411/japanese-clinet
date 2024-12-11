@@ -1,49 +1,54 @@
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import UserLayout from "../../UserLayout";
+import { RegisterSchema } from "../../components/Form/validation/RegisterSchema";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { useRegisterUserMutation } from "../../apps/features/auth/authApi";
 
 const RegisterPage = () => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
     const [profilePhoto, setProfilePhoto] = useState(null);
-    const [error, setError] = useState("");
+    const [file, setfile] = useState(null);
+    // rtk handel 
+    const [createAccount, { data, isError, isSuccess, error, isLoading }] = useRegisterUserMutation()
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const { handleSubmit, register, formState: { errors }, reset } = useForm({ resolver: yupResolver(RegisterSchema) });
 
-        // Simple validation checks
-        if (!name || !email || !password || !confirmPassword) {
-            setError("Please fill in all fields.");
-            return;
+    const onSubmit = async (event) => {
+        if (!file) {
+            toast.error("Pleass images upload")
+        } else {
+            const formData = new FormData();
+            formData.append("name", event?.name)
+            formData.append("email", event?.email)
+            formData.append("password", event?.password)
+            formData.append("profilePhoto", file)
+            await createAccount(formData)
         }
-        if (password !== confirmPassword) {
-            setError("Passwords do not match.");
-            return;
-        }
-
-        // Here you can add the code to handle the registration process
-        // You can make an API call for user registration, example:
-        // axios.post("/api/register", { name, email, password, profilePhoto })
-        //   .then((response) => { 
-        //     history.push("/login"); // Redirect to the login page on success
-        //   })
-        //   .catch((err) => {
-        //     setError("Registration failed.");
-        //   });
-
-        // For now, simulate successful registration:
-        setTimeout(() => {
-            //history.push("/login"); // Redirect to login page
-        }, 1000);
+       
     };
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setProfilePhoto(URL.createObjectURL(file)); // Preview the image
+            setfile(file)
+            setProfilePhoto(URL.createObjectURL(file));
+
         }
     };
+    useEffect(() => {
+        if (isError) {
+            toast.error(error.data.message)
+        }
+        if (isSuccess) {
+            toast.success(data.message)
+            reset()
+        }
+    }, [isError, isLoading, isSuccess])
+
+
+
 
     return (
         <UserLayout>
@@ -51,68 +56,70 @@ const RegisterPage = () => {
                 <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-lg">
                     <h2 className="text-2xl font-bold mb-4 text-center">Create Account</h2>
 
-                    {error && <div className="text-red-500 mb-4">{error}</div>}
 
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="mb-4">
                             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                                Full Name
+                                Full Name  <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="text"
                                 id="name"
                                 className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                required
-                            />
+                                {...register("name", { required: true })}
+                            />   {errors && (
+                                <span className="text-red-500">{errors?.name?.message}</span>
+                            )}
                         </div>
 
                         <div className="mb-4">
                             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                Email
+                                Email  <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="email"
                                 id="email"
                                 className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
+                                {...register("email", { required: true })}
                             />
+                            {errors && (
+                                <span className="text-red-500">{errors?.email?.message}</span>
+                            )}
                         </div>
 
                         <div className="mb-4">
                             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                                Password
+                                Password  <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="password"
                                 id="password"
                                 className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
+                                {...register("password", { required: true })}
                             />
+                            {errors && (
+                                <span className="text-red-500">{errors?.password?.message}</span>
+                            )}
                         </div>
 
                         <div className="mb-4">
                             <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                                Confirm Password
+                                Confirm Password  <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="password"
                                 id="confirmPassword"
                                 className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                required
+                                {...register("confirmPassword", { required: true })}
                             />
+                            {errors && (
+                                <span className="text-red-500">{errors?.confirmPassword?.message}</span>
+                            )}
                         </div>
 
                         <div className="mb-4">
                             <label htmlFor="profilePhoto" className="block text-sm font-medium text-gray-700">
-                                Profile Photo
+                                Profile Photo  <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="file"
@@ -120,7 +127,9 @@ const RegisterPage = () => {
                                 accept="image/*"
                                 className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 onChange={handleFileChange}
+
                             />
+
                             {profilePhoto && (
                                 <div className="mt-2 flex justify-center">
                                     <img
@@ -156,3 +165,18 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
