@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { userLoggedOut } from "../../apps/features/auth/authSlice";
+import { userloading, userLoggedOut } from "../../apps/features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const ProfileMenu = () => {
+    const navigate=useNavigate()
     const dispatch = useDispatch();
 
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -34,6 +36,7 @@ const ProfileMenu = () => {
         localStorage.removeItem('token');
         dispatch(userLoggedOut());
         dispatch(userloading());
+        navigate('/')
     }
 
 

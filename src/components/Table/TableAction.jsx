@@ -1,7 +1,7 @@
 import { MdDelete } from "react-icons/md"
 import { RiEdit2Fill } from "react-icons/ri"
 
-const LassaonsTableAction = ({ data, setIsModalOpenDelete }) => {
+const TableAction = ({ data, setIsModalOpenDelete }) => {
 
     return (
         <td className="px-6 py-4 flex justify-start items-center gap-5">
@@ -13,4 +13,4 @@ const LassaonsTableAction = ({ data, setIsModalOpenDelete }) => {
     )
 }
 
-export default LassaonsTableAction;
+export default TableAction;

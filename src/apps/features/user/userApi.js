@@ -32,7 +32,6 @@ export const authApi = apiSlice.enhanceEndpoints({ addTagTypes: [] }).injectEndp
             query: (id) => ({
                 url: `/user/delete/${id}`,
                 method: "DELETE",
-                body: data,
             }),
             invalidatesTags: ["user"],
         }),

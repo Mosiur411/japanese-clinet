@@ -18,8 +18,10 @@ const UserAuthCheck = () => {
             }
             return decoded; // Return the decoded token
         } catch (error) {
-            console.error("Invalid token", error);
-            return null;
+            localStorage.removeItem('token');
+            dispatch(userLoggedOut());
+            dispatch(userloading());
+            setAuthCheck(false);
         }
     };
     useEffect(() => {

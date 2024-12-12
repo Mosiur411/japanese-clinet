@@ -8,7 +8,7 @@ const UserLayout = ({ children, userInfo }) => {
       {/* Navbar */}
       <nav className="bg-blue-500 text-white px-4 py-3">
         <div className="flex justify-between items-center">
-          <div className="text-lg font-bold">App Logo</div>
+          <div className="text-lg font-bold">Mosiur</div>
           <div className="space-x-4">
             {
               userInfo?.role && <Link to="/dashboard" className="hover:underline">Dashboard</Link>

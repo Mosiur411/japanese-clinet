@@ -9,15 +9,15 @@ import TableheadData from "../../Table/TableheadData";
 import TableThead from "../../Table/TableThead";
 import { useState } from "react";
 import ModalContainer from "../../modal";
-import { useDeleteLessonMutation } from "../../../apps/features/lesson/lessonApi";
 import { toast } from "react-toastify";
 import TableAction from "../../Table/TableAction";
+import { useDeleteUserMutation } from "../../../apps/features/user/userApi";
 
-const LassaonsTable = ({ data, isLoading, isError }) => {
+const UserTable = ({ data, isLoading, isError }) => {
     // delete 
     const [isModalOpenDelete, setIsModalOpenDelete] = useState({ open: false, id: null });
     // rtk handel
-    const [confimDelete, { isLoading: deleteLoading, isSuccess: deletIssuccess, error: deleteerror, isError: deleteIserror, data: deleteDaa }] = useDeleteLessonMutation()
+    const [confimDelete, { isLoading: deleteLoading, isSuccess: deletIssuccess, error: deleteerror, isError: deleteIserror, data: deleteDaa }] = useDeleteUserMutation()
     // content manges
     let content;
     if (isLoading) content = <Error message={"Loading..."} />;
@@ -25,12 +25,12 @@ const LassaonsTable = ({ data, isLoading, isError }) => {
         content = <Loading message={"This Pages Is Empty."} />;
     }
     if (!isLoading && !isError && data?.length > 0) {
-        content = data?.map((Lassaon, index) => (
+        content = data?.map((user, index) => (
             <TableData key={index} className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600`}>
-                <TablebodyData scope="row" text={Lassaon?.title} />
-                <TablebodyData text={Lassaon?.lessonNo} />
-                <TablebodyData text={Lassaon?.vocabularyCount} />
-                <TableAction data={Lassaon} setIsModalOpenDelete={setIsModalOpenDelete} />
+                <TablebodyData scope="row" text={user?.name} />
+                <TablebodyData text={user?.email} />
+                <TablebodyData text={user?.role} />
+                <TableAction data={user} setIsModalOpenDelete={setIsModalOpenDelete} />
             </TableData>
         ));
     }
@@ -59,9 +59,9 @@ const LassaonsTable = ({ data, isLoading, isError }) => {
                 <TableContainer>
                     <TableThead>
                         <TableData>
-                            <TableheadData text="Title" />
-                            <TableheadData text="Lesson No" />
-                            <TableheadData text="Total Vocabulary" />
+                            <TableheadData text="Name" />
+                            <TableheadData text="Email" />
+                            <TableheadData text="Role" />
                             <TableheadData text="Action" />
                         </TableData>
                     </TableThead>
@@ -85,4 +85,4 @@ const LassaonsTable = ({ data, isLoading, isError }) => {
         </div>
     )
 }
-export default LassaonsTable;
+export default UserTable;

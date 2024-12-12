@@ -8,6 +8,9 @@ import Spinner from "./components/shared/Spinner"
 import PrivetRoute from "./components/routes/PrivetRoute"
 import NotFound from "./pages/notFound"
 import LessonsPageDash from "./pages/dashboard/lessons"
+import UserPageDash from "./pages/dashboard/users"
+import VocabularyPageDash from "./pages/dashboard/vocabulary"
+import TutorilPageDash from "./pages/dashboard/tutorials"
 
 function App() {
   const authchek = UserAuthCheck();
@@ -22,7 +25,10 @@ function App() {
          
         </Route> */}
         {/* dashboard layout and handel  */}
-        <Route path="/lessons" element={<LessonsPageDash />} />
+        <Route path="/lesson-manage" element={<LessonsPageDash />} />
+        <Route path="/user-manage" element={<UserPageDash />} />
+        <Route path="/vocabulary-manage" element={<VocabularyPageDash/>} />
+        <Route path="/tutorial-manage" element={<TutorilPageDash />} />
 
 
 

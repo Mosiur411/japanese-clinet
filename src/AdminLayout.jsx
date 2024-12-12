@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaBars, FaTimes, FaHome, FaBook, FaPlus, FaUsers, FaClipboardList, FaVideo } from "react-icons/fa";
 import ProfileMenu from "./components/shared/ProfileMenu";
+import { Link } from "react-router";
 
 const AdminLayout = ({ children, pagetitle, openModal }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -38,36 +39,36 @@ const AdminLayout = ({ children, pagetitle, openModal }) => {
 
                 {/* Navigation */}
                 <nav className="space-y-2">
-                    <a
+                    <Link
                         href="/dashboard"
                         className="flex items-center px-3 py-2 rounded hover:bg-blue-600 text-xl font-serif"
                     >
                         Japanese-Vocabulary
-                    </a>
-                    <a
-                        href="/user-manage"
+                    </Link>
+                    <Link
+                        to="/user-manage"
                         className="flex items-center px-3 py-2 rounded hover:bg-blue-600"
                     >
                         <FaUsers className="mr-2" />User Manages
-                    </a>
-                    <a
-                        href="/lesson-manage"
+                    </Link>
+                    <Link
+                        to="/lesson-manage"
                         className="flex items-center px-3 py-2 rounded hover:bg-blue-600"
                     >
                         <FaBook className="mr-2" />Lesson Manages
-                    </a>
-                    <a
-                        href="/vocabulary-manage"
+                    </Link>
+                    <Link
+                        to="/vocabulary-manage"
                         className="flex items-center px-3 py-2 rounded hover:bg-blue-600"
                     >
                         <FaClipboardList className="mr-2" /> Vocabulary Manages
-                    </a>
-                    <a
-                        href="/tutorial-manage"
+                    </Link>
+                    <Link
+                        to="/tutorial-manage"
                         className="flex items-center px-3 py-2 rounded hover:bg-blue-600"
                     >
                         <FaVideo className="mr-2" /> Tutorial Manages
-                    </a>
+                    </Link>
                 </nav>
             </aside>
 

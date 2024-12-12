@@ -35,11 +35,10 @@ export const authApi = apiSlice.enhanceEndpoints({ addTagTypes: [] }).injectEndp
             }),
             invalidatesTags: ["lesson"],
         }),
-        deleteLessony: builder.mutation({
-            query: (data) => ({
-                url: "/lesson/login",
+        deleteLesson: builder.mutation({
+            query: (id) => ({
+                url: `/lesson/delete/${id}`,
                 method: "DELETE",
-                body: data,
             }),
             invalidatesTags: ["lesson"],
         }),
@@ -47,5 +46,5 @@ export const authApi = apiSlice.enhanceEndpoints({ addTagTypes: [] }).injectEndp
 });
 
 export const {
-  useCreateLessonMutation,useDeleteLessonyMutation,useGetLessonQuery,useGetsingleLessonQuery,useUpdateLessonyMutation
+  useCreateLessonMutation,useDeleteLessonMutation,useGetLessonQuery,useGetsingleLessonQuery,useUpdateLessonyMutation
 } = authApi;
