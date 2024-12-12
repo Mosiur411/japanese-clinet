@@ -20,7 +20,7 @@ const AdminLayout = ({ children, pagetitle, openModal }) => {
 
 
     return (
-        <div className="min-h-screen flex flex-col lg:flex-row">
+        <div className="min-h-screen flex flex-col lg:flex-row capitalize">
             {/* Sidebar */}
             <aside
                 className={`fixed lg:static top-0 left-0 z-50 w-64 bg-blue-900 text-white flex flex-col p-4 transition-transform duration-300 ease-in-out ${isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"

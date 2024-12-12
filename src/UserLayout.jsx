@@ -5,7 +5,7 @@ import ProfileMenu from "./components/shared/ProfileMenu";
 
 const UserLayout = ({ children, userInfo }) => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col capitalize">
       {/* Navbar */}
       <nav className="bg-blue-500 text-white px-4 py-3">
         <div className="flex justify-between items-center">

@@ -21,7 +21,7 @@ const LessonsPage = () => {
     return (
         <UserLayout>
             <div className="min-h-screen bg-gray-100 p-4">
-                <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Lessons</h1>
+                <h1 className="text-3xl font-bold text-center text-gray-800 mb-8 underline">Lessons</h1>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {lessons.map((lesson) => (
@@ -35,11 +35,7 @@ const LessonsPage = () => {
                                 <p className="text-gray-600 mt-2">Lesson Number: {lesson.lessonNo}</p>
                                 <p className="text-gray-600 mt-2">Vocabulary Count: {lesson.vocabularyCount}</p>
                             </div>
-                            <div className="bg-gray-800 text-white p-4 text-center">
-                                <button className="bg-blue-600 px-6 py-2 rounded-lg hover:bg-blue-700 focus:outline-none">
-                                    View Details
-                                </button>
-                            </div>
+                           
                         </Link>
                     ))}
                 </div>

@@ -28,7 +28,6 @@ const TutorialTable = ({ data, isLoading, isError }) => {
             <TableData key={index} className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600`}>
                 <TablebodyData scope="row" text={vocabular?.title} />
                 <TablebodyData text={vocabular?.description} />
-                <TablebodyData text={vocabular?.youtubeLink} />
                 <TableAction data={vocabular} setIsModalOpenDelete={setIsModalOpenDelete} />
             </TableData>
         ));
@@ -60,7 +59,6 @@ const TutorialTable = ({ data, isLoading, isError }) => {
                         <TableData>
                             <TableheadData text="Title" />
                             <TableheadData text="Description" />
-                            <TableheadData text="Video Link" />
                             <TableheadData text="Action" />
                         </TableData>
                     </TableThead>
