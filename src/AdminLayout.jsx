@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaBars, FaTimes, FaHome, FaBook, FaPlus, FaUsers, FaClipboardList, FaVideo } from "react-icons/fa";
+import ProfileMenu from "./components/shared/ProfileMenu";
 
 const AdminLayout = ({ children, pagetitle, openModal }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-    const profileMenuRef = useRef(null);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -14,26 +14,9 @@ const AdminLayout = ({ children, pagetitle, openModal }) => {
         setIsProfileMenuOpen((prev) => !prev);
     };
 
-    const closeProfileMenu = () => {
-        setIsProfileMenuOpen(false);
-    };
+    
 
-    // Close profile menu when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (
-                profileMenuRef.current &&
-                !profileMenuRef.current.contains(event.target)
-            ) {
-                closeProfileMenu();
-            }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
 
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
 
     return (
         <div className="min-h-screen flex flex-col lg:flex-row">
@@ -101,30 +84,7 @@ const AdminLayout = ({ children, pagetitle, openModal }) => {
                     </button>
                     <h1><strong>Dashboard</strong></h1>
                     {/* Profile Section */}
-                    <div className="relative" ref={profileMenuRef}>
-                        <img
-                            src="https://via.placeholder.com/40" // Replace with dynamic image URL
-                            alt="Profile"
-                            className="w-10 h-10 rounded-full cursor-pointer"
-                            onClick={toggleProfileMenu}
-                        />
-                        {isProfileMenuOpen && (
-                            <div className="absolute right-0 mt-2 w-48 bg-white text-gray-800 shadow-lg rounded-lg">
-                                <button
-                                    className="block w-full px-4 py-2 text-left hover:bg-gray-100"
-                                    onClick={() => alert("View Profile")}
-                                >
-                                    View Profile
-                                </button>
-                                <button
-                                    className="block w-full px-4 py-2 text-left hover:bg-gray-100"
-                                    onClick={() => alert("Logout")}
-                                >
-                                    Logout
-                                </button>
-                            </div>
-                        )}
-                    </div>
+                    <ProfileMenu/>
                 </header>
                 <main className="px-6 pt-5 flex justify-between items-center flex-wrap">
                     <div className=" w-full flex justify-between items-center flex-wrap gap-5 px-2 py-4 rounded shadow-md bg-gray-200">
@@ -133,7 +93,7 @@ const AdminLayout = ({ children, pagetitle, openModal }) => {
                         </div>
                         <div>
                             <button
-                                onClick={()=>openModal()}
+                                onClick={() => openModal()}
                                 className="w-full px-10 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Add {pagetitle}</button>
 
                         </div>

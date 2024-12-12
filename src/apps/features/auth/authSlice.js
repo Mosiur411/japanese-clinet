@@ -13,6 +13,7 @@ export const authSlice = createSlice({
       state.isLoading = false;
     },
     userLoggedIn: (state, action) => {
+      console.log("action.payload",action.payload)
       state.userInfo = action.payload;
     },
     userLoggedOut: (state) => {

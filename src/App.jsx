@@ -12,6 +12,8 @@ import LessonsPageDash from "./pages/dashboard/lessons"
 function App() {
   const authchek = UserAuthCheck();
 
+
+
   return (
     <>
       <Routes>
