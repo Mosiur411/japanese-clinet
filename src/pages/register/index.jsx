@@ -12,36 +12,19 @@ import Button from "../../components/shared/Button";
 const RegisterPage = () => {
     // react hook
     const navigate = useNavigate();
-
     const [profilePhoto, setProfilePhoto] = useState(null);
-    const [file, setfile] = useState(null);
     // rtk handel 
     const [createAccount, { data, isError, isSuccess, error, isLoading }] = useRegisterUserMutation()
 
     const { handleSubmit, register, formState: { errors }, reset } = useForm({ resolver: yupResolver(RegisterSchema) });
 
     const onSubmit = async (event) => {
-        if (!file) {
-            toast.error("Pleass images upload")
-        } else {
-            const formData = new FormData();
-            formData.append("name", event?.name)
-            formData.append("email", event?.email)
-            formData.append("password", event?.password)
-            formData.append("profilePhoto", file)
-            await createAccount(formData)
-        }
+  
+        await createAccount(event)
        
     };
 
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setfile(file)
-            setProfilePhoto(URL.createObjectURL(file));
 
-        }
-    };
     useEffect(() => {
         if (isError) {
             toast.error(error.data.message)
@@ -128,11 +111,11 @@ const RegisterPage = () => {
                                 Profile Photo  <span className="text-red-500">*</span>
                             </label>
                             <input
-                                type="file"
+                                type="text"
                                 id="profilePhoto"
-                                accept="image/*"
                                 className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                onChange={handleFileChange}
+                                onChange={setProfilePhoto}
+                                {...register("profilePhoto", { required: true })}
 
                             />
 

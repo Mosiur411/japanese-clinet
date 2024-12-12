@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FaBars, FaTimes, FaHome, FaBook, FaPlus, FaUsers, FaClipboardList } from "react-icons/fa";
+import { FaBars, FaTimes, FaHome, FaBook, FaPlus, FaUsers, FaClipboardList, FaVideo } from "react-icons/fa";
 
-const AdminLayout = ({ children }) => {
+const AdminLayout = ({ children, pagetitle, openModal }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     const profileMenuRef = useRef(null);
@@ -39,7 +39,7 @@ const AdminLayout = ({ children }) => {
         <div className="min-h-screen flex flex-col lg:flex-row">
             {/* Sidebar */}
             <aside
-                className={`fixed lg:static top-0 left-0 z-50 w-64 bg-gray-800 text-white flex flex-col p-4 transition-transform duration-300 ease-in-out ${isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+                className={`fixed lg:static top-0 left-0 z-50 w-64 bg-blue-900 text-white flex flex-col p-4 transition-transform duration-300 ease-in-out ${isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
                     }`}
             >
                 {/* Close Button for Mobile */}
@@ -57,33 +57,33 @@ const AdminLayout = ({ children }) => {
                 <nav className="space-y-2">
                     <a
                         href="/dashboard"
-                        className="flex items-center px-3 py-2 rounded hover:bg-gray-700"
+                        className="flex items-center px-3 py-2 rounded hover:bg-blue-600 text-xl font-serif"
                     >
-                        <FaHome className="mr-2" /> Dashboard
+                        Japanese-Vocabulary
                     </a>
                     <a
-                        href="/lessons"
-                        className="flex items-center px-3 py-2 rounded hover:bg-gray-700"
+                        href="/user-manage"
+                        className="flex items-center px-3 py-2 rounded hover:bg-blue-600"
                     >
-                        <FaBook className="mr-2" /> Lessons
+                        <FaUsers className="mr-2" />User Manages
                     </a>
                     <a
-                        href="/add-lessons"
-                        className="flex items-center px-3 py-2 rounded hover:bg-gray-700"
+                        href="/lesson-manage"
+                        className="flex items-center px-3 py-2 rounded hover:bg-blue-600"
                     >
-                        <FaPlus className="mr-2" /> Add Lessons
+                        <FaBook className="mr-2" />Lesson Manages
                     </a>
                     <a
-                        href="/vocabulary-management"
-                        className="flex items-center px-3 py-2 rounded hover:bg-gray-700"
+                        href="/vocabulary-manage"
+                        className="flex items-center px-3 py-2 rounded hover:bg-blue-600"
                     >
-                        <FaClipboardList className="mr-2" /> Vocabulary Management
+                        <FaClipboardList className="mr-2" /> Vocabulary Manages
                     </a>
                     <a
-                        href="/manage-users"
-                        className="flex items-center px-3 py-2 rounded hover:bg-gray-700"
+                        href="/tutorial-manage"
+                        className="flex items-center px-3 py-2 rounded hover:bg-blue-600"
                     >
-                        <FaUsers className="mr-2" /> Manage Users
+                        <FaVideo className="mr-2" /> Tutorial Manages
                     </a>
                 </nav>
             </aside>
@@ -91,7 +91,7 @@ const AdminLayout = ({ children }) => {
             {/* Main Content */}
             <div className="flex-grow bg-gray-100">
                 {/* Header */}
-                <header className="bg-gray-800 text-white px-4 py-3 flex justify-between items-center">
+                <header className="bg-blue-600 text-white px-4 py-3 flex justify-between items-center">
                     {/* Left Section */}
                     <button
                         className="text-white text-2xl lg:hidden"
@@ -99,7 +99,7 @@ const AdminLayout = ({ children }) => {
                     >
                         <FaBars />
                     </button>
-                    <h1>Hello</h1>
+                    <h1><strong>Dashboard</strong></h1>
                     {/* Profile Section */}
                     <div className="relative" ref={profileMenuRef}>
                         <img
@@ -126,6 +126,20 @@ const AdminLayout = ({ children }) => {
                         )}
                     </div>
                 </header>
+                <main className="px-6 pt-5 flex justify-between items-center flex-wrap">
+                    <div className=" w-full flex justify-between items-center flex-wrap gap-5 px-2 py-4 rounded shadow-md bg-gray-200">
+                        <div className="text-2xl">
+                            <strong>{pagetitle}</strong>
+                        </div>
+                        <div>
+                            <button
+                                onClick={()=>openModal()}
+                                className="w-full px-10 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Add {pagetitle}</button>
+
+                        </div>
+                    </div>
+                </main>
+
 
                 {/* Main Content Area */}
                 <main className="p-6">{children}</main>

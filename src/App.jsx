@@ -7,6 +7,7 @@ import UserAuthCheck from "./components/hooks/UserAuthCheck"
 import Spinner from "./components/shared/Spinner"
 import PrivetRoute from "./components/routes/PrivetRoute"
 import NotFound from "./pages/notFound"
+import LessonsPageDash from "./pages/dashboard/lessons"
 
 function App() {
   const authchek = UserAuthCheck();
@@ -14,10 +15,17 @@ function App() {
   return (
     <>
       <Routes>
-      <Route path="/lessons" element={<LassonsPage />} />
+        {/* <Route path="/lessons" element={<LassonsPage />} /> */}
         {/* <Route path="/*" element={<PrivetRoute />}>
          
         </Route> */}
+        {/* dashboard layout and handel  */}
+        <Route path="/lessons" element={<LessonsPageDash />} />
+
+
+
+
+
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/tutorials" element={<TutorialPage />} />

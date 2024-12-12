@@ -2,6 +2,7 @@ import * as yup from "yup";
 
 export const RegisterSchema = yup.object().shape({
     name: yup.string().required("Name field is required"),
+    profilePhoto: yup.string().required("profilePhoto field is required"), 
     email: yup
         .string()
         .required("Email field is required")
