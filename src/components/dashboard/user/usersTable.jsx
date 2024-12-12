@@ -35,7 +35,7 @@ const UserTable = ({ data, isLoading, isError }) => {
         ));
     }
     if (!isLoading && !isError && data?.length === 0) {
-        content = <Error message={"No Products Found!!"} />;
+        content = <Error message={"No Users Found!!"} />;
     }
 
     const closeModal = () => {

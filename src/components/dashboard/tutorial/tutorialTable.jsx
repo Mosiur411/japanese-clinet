@@ -1,4 +1,3 @@
-import { MdDelete } from "react-icons/md";
 import Error from "../../shared/Error";
 import Loading from "../../shared/Loading";
 import TableContainer from "../../Table";
@@ -9,15 +8,15 @@ import TableheadData from "../../Table/TableheadData";
 import TableThead from "../../Table/TableThead";
 import { useState } from "react";
 import ModalContainer from "../../modal";
-import { useDeleteLessonMutation } from "../../../apps/features/lesson/lessonApi";
 import { toast } from "react-toastify";
 import TableAction from "../../Table/TableAction";
+import { useDeleteTutorialMutation } from "../../../apps/features/tutorial/tutorialApi";
 
-const LassaonsTable = ({ data, isLoading, isError }) => {
+const TutorialTable = ({ data, isLoading, isError }) => {
     // delete 
     const [isModalOpenDelete, setIsModalOpenDelete] = useState({ open: false, id: null });
     // rtk handel
-    const [confimDelete, { isLoading: deleteLoading, isSuccess: deletIssuccess, error: deleteerror, isError: deleteIserror, data: deleteDaa }] = useDeleteLessonMutation()
+    const [confimDelete, { isLoading: deleteLoading, isSuccess: deletIssuccess, error: deleteerror, isError: deleteIserror, data: deleteDaa }] = useDeleteTutorialMutation()
     // content manges
     let content;
     if (isLoading) content = <Error message={"Loading..."} />;
@@ -25,17 +24,17 @@ const LassaonsTable = ({ data, isLoading, isError }) => {
         content = <Loading message={"This Pages Is Empty."} />;
     }
     if (!isLoading && !isError && data?.length > 0) {
-        content = data?.map((Lassaon, index) => (
+        content = data?.map((vocabular, index) => (
             <TableData key={index} className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600`}>
-                <TablebodyData scope="row" text={Lassaon?.title} />
-                <TablebodyData text={Lassaon?.lessonNo} />
-                <TablebodyData text={Lassaon?.vocabularyCount} />
-                <TableAction data={Lassaon} setIsModalOpenDelete={setIsModalOpenDelete} />
+                <TablebodyData scope="row" text={vocabular?.title} />
+                <TablebodyData text={vocabular?.description} />
+                <TablebodyData text={vocabular?.youtubeLink} />
+                <TableAction data={vocabular} setIsModalOpenDelete={setIsModalOpenDelete} />
             </TableData>
         ));
     }
     if (!isLoading && !isError && data?.length === 0) {
-        content = <Error message={"No Lessons Found!!"} />;
+        content = <Error message={"No Tutorial Found!!"} />;
     }
 
     const closeModal = () => {
@@ -60,8 +59,8 @@ const LassaonsTable = ({ data, isLoading, isError }) => {
                     <TableThead>
                         <TableData>
                             <TableheadData text="Title" />
-                            <TableheadData text="Lesson No" />
-                            <TableheadData text="Total Vocabulary" />
+                            <TableheadData text="Description" />
+                            <TableheadData text="Video Link" />
                             <TableheadData text="Action" />
                         </TableData>
                     </TableThead>
@@ -85,4 +84,4 @@ const LassaonsTable = ({ data, isLoading, isError }) => {
         </div>
     )
 }
-export default LassaonsTable;
+export default TutorialTable;

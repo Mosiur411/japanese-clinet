@@ -13,7 +13,6 @@ const UserAuthCheck = () => {
             // Check if token is expired
             const currentTime = Date.now() / 1000; // Convert to seconds
             if (decoded.exp < currentTime) {
-                console.log("Token is expired");
                 return null;
             }
             return decoded; // Return the decoded token
@@ -21,6 +20,7 @@ const UserAuthCheck = () => {
             localStorage.removeItem('token');
             dispatch(userLoggedOut());
             dispatch(userloading());
+            localStorage.clear();
             setAuthCheck(false);
         }
     };
@@ -32,6 +32,7 @@ const UserAuthCheck = () => {
             dispatch(userloading());
             setAuthCheck(true);
         }else{
+            localStorage.clear();
             dispatch(userLoggedOut());
             dispatch(userloading());
             setAuthCheck(false);

@@ -33,11 +33,11 @@ const AddVocabulary = ({ closeModal }) => {
 
 
     return (
-        <ModalContainer title={"Add Lessons"} closeModal={closeModal}>
+        <ModalContainer title={"Add Vocabulary"} closeModal={closeModal}>
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-4">
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                    <label  className="block text-sm font-medium text-gray-700">
                         Word  <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -79,7 +79,7 @@ const AddVocabulary = ({ closeModal }) => {
                         <span className="text-red-500">{errors?.lessonNo?.message}</span>
                     )}
                 </div>
-                <Button isLoading={isLoading} text="Add Lesson" />
+                <Button isLoading={isLoading} text="Add Vocabulary" />
 
             </form>
 

@@ -10,30 +10,33 @@ import NotFound from "./pages/notFound"
 import LessonsPageDash from "./pages/dashboard/lessons"
 import UserPageDash from "./pages/dashboard/users"
 import VocabularyPageDash from "./pages/dashboard/vocabulary"
-import TutorilPageDash from "./pages/dashboard/tutorials"
+import TutorialPageDash from "./pages/dashboard/tutorials"
+import OnlyAdminRoute from "./components/routes/OnlyAdminRoute"
+
+import SingleLessonsPage from "./pages/landing/lessons/singleLessons"
 
 function App() {
   const authchek = UserAuthCheck();
 
 
-
+  
   return (
     <>
       <Routes>
-        {/* <Route path="/lessons" element={<LassonsPage />} /> */}
-        {/* <Route path="/*" element={<PrivetRoute />}>
-         
-        </Route> */}
-        {/* dashboard layout and handel  */}
-        <Route path="/lesson-manage" element={<LessonsPageDash />} />
-        <Route path="/user-manage" element={<UserPageDash />} />
-        <Route path="/vocabulary-manage" element={<VocabularyPageDash/>} />
-        <Route path="/tutorial-manage" element={<TutorilPageDash />} />
-
-
-
-
-
+        {/*  */}
+        <Route path="/*" element={<PrivetRoute />}>
+          {/* user */}
+          <Route path="lessons" element={<LassonsPage />} />
+          <Route path="lessons/:id" element={<SingleLessonsPage />} />
+          {/* dashboard*/}
+          <Route path="/*" element={<OnlyAdminRoute />}>
+            <Route path="lesson-manage" element={<LessonsPageDash />} />
+            <Route path="dashboard" element={<UserPageDash />} />
+            <Route path="user-manage" element={<UserPageDash />} />
+            <Route path="vocabulary-manage" element={<VocabularyPageDash />} />
+            <Route path="tutorial-manage" element={<TutorialPageDash />} />
+          </Route>
+        </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/tutorials" element={<TutorialPage />} />

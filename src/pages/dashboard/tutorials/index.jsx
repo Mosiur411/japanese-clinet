@@ -1,18 +1,18 @@
 
 import React, { useMemo, useState } from "react";
 import AdminLayout from "../../../AdminLayout";
-import Addlessons from "../../../components/dashboard/lessons/addlessons";
-import { useGetLessonQuery } from "../../../apps/features/lesson/lessonApi";
-import LassaonsTable from "../../../components/dashboard/lessons/lassaonsTable";
 import Pagination from "../../../components/pagination/Pagination";
 import PaginationBtn from "../../../components/pagination/PaginationBtn";
 import PageCount from "../../../components/pagination/PageCount";
+import TutorialTable from "../../../components/dashboard/tutorial/tutorialTable";
+import { useGetTutorialQuery } from "../../../apps/features/tutorial/tutorialApi";
+import AddTutorial from "../../../components/dashboard/tutorial/addTutorial";
 
-const TutorilPageDash = () => {
+const TutorialPageDash = () => {
     const [{ pageIndex, pageSize }, setPagination] = useState({ pageIndex: 1, pageSize: 10 });
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const pathname = `page=${pageIndex}&limit=${pageSize}&sort=1`    
-    const { data, isLoading, isError, isFetching } = useGetLessonQuery(pathname)
+    const pathname = `page=${pageIndex}&limit=${pageSize}&sort=-1`    
+    const { data, isLoading, isError, isFetching } = useGetTutorialQuery(pathname)
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -23,20 +23,20 @@ const TutorilPageDash = () => {
     };
 
     /*  data format  */
-    const lesson = useMemo(() => data?.data ? data?.data?.lessons : [], [isLoading, isError, isFetching,pageIndex, pageSize])
+    const tutorial = useMemo(() => data?.data ? data?.data?.tutorial : [], [isLoading, isError, isFetching,pageIndex, pageSize])
 
     
 
     return (
-        <AdminLayout pagetitle="Lessons" openModal={openModal}>
-            <LassaonsTable data={lesson} isLoading={isLoading} isError={isError} />
+        <AdminLayout pagetitle="Tutorial" openModal={openModal}>
+            <TutorialTable data={tutorial} isLoading={isLoading} isError={isError} />
             <Pagination>
                 <PageCount total={data?.data?.totalPages} current={pageIndex}  />
                 <PaginationBtn pageIndex={pageIndex} setPagination={setPagination} totalPages={data?.data?.totalPages} />
             </Pagination>
 
             {
-                isModalOpen && <Addlessons closeModal={closeModal} />
+                isModalOpen && <AddTutorial closeModal={closeModal} />
             }
 
 
@@ -44,4 +44,4 @@ const TutorilPageDash = () => {
     );
 };
 
-export default TutorilPageDash;
+export default TutorialPageDash;

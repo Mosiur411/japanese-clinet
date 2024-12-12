@@ -1,6 +1,6 @@
 import { apiSlice } from "../api/apiSlice";
 
-export const authApi = apiSlice.enhanceEndpoints({ addTagTypes: [] }).injectEndpoints({
+export const authApi = apiSlice.enhanceEndpoints({ addTagTypes: ['lesson'] }).injectEndpoints({
 
     endpoints: (builder) => ({
         createTutorial: builder.mutation({
@@ -16,7 +16,7 @@ export const authApi = apiSlice.enhanceEndpoints({ addTagTypes: [] }).injectEndp
                 url: `/tutorial?${pathname}`,
                 method: "GET",
             }),
-            providesTags: ["tutorial"],
+            providesTags: ["tutorial","lesson"],
             keepUnusedDataFor: 600,
         }),
         getsingleTutorial: builder.query({
@@ -35,11 +35,10 @@ export const authApi = apiSlice.enhanceEndpoints({ addTagTypes: [] }).injectEndp
             }),
             invalidatesTags: ["tutorial"],
         }),
-        deleteTutorialy: builder.mutation({
+        deleteTutorial: builder.mutation({
             query: (id) => ({
                 url: `/tutorial/delete/${id}`,
                 method: "DELETE",
-                body: data,
             }),
             invalidatesTags: ["tutorial"],
         }),
@@ -47,5 +46,5 @@ export const authApi = apiSlice.enhanceEndpoints({ addTagTypes: [] }).injectEndp
 });
 
 export const {
-    useCreateTutorialMutation, useGetsingleTutorialQuery, useGetTutorialQuery, useDeleteTutorialyMutation, useUpdateTutorialyMutation
+    useCreateTutorialMutation, useGetsingleTutorialQuery, useGetTutorialQuery, useDeleteTutorialMutation, useUpdateTutorialyMutation
 } = authApi;

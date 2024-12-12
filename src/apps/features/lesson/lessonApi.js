@@ -1,6 +1,6 @@
 import { apiSlice } from "../api/apiSlice";
 
-export const authApi = apiSlice.enhanceEndpoints({ addTagTypes: [] }).injectEndpoints({
+export const authApi = apiSlice.enhanceEndpoints({ addTagTypes: ["tutorial"] }).injectEndpoints({
 
     endpoints: (builder) => ({
         createLesson: builder.mutation({
@@ -16,7 +16,7 @@ export const authApi = apiSlice.enhanceEndpoints({ addTagTypes: [] }).injectEndp
                 url: `/lesson?${pathname}`,
                 method: "GET",
             }),
-            providesTags: ["lesson"],
+            providesTags: ["tutorial","lesson"],
             keepUnusedDataFor: 600,
         }),
         getsingleLesson: builder.query({

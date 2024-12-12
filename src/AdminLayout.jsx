@@ -40,8 +40,8 @@ const AdminLayout = ({ children, pagetitle, openModal }) => {
                 {/* Navigation */}
                 <nav className="space-y-2">
                     <Link
-                        href="/dashboard"
-                        className="flex items-center px-3 py-2 rounded hover:bg-blue-600 text-xl font-serif"
+                        to="/"
+                        className="flex items-center px-3 py-2 rounded  text-xl font-serif"
                     >
                         Japanese-Vocabulary
                     </Link>

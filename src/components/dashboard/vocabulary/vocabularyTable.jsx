@@ -1,4 +1,3 @@
-
 import Error from "../../shared/Error";
 import Loading from "../../shared/Loading";
 import TableContainer from "../../Table";
@@ -36,7 +35,7 @@ const VocabularyTable = ({ data, isLoading, isError }) => {
         ));
     }
     if (!isLoading && !isError && data?.length === 0) {
-        content = <Error message={"No Products Found!!"} />;
+        content = <Error message={"No Vocabulary Found!!"} />;
     }
 
     const closeModal = () => {

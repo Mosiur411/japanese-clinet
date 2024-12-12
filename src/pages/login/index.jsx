@@ -4,11 +4,16 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Button from "../../components/shared/Button";
 import { Link } from "react-router";
+import { useNavigate } from 'react-router-dom'
 import { LoginSchema } from "../../components/Form/validation/LoginSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useLoginUserMutation } from "../../apps/features/auth/authApi";
+import { userloading, userLoggedIn } from "../../apps/features/auth/authSlice";
+import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
     const { handleSubmit, register, formState: { errors }, reset } = useForm({ resolver: yupResolver(LoginSchema) });
     // rtk 
     const [userLogin, { isError, isLoading, isSuccess, data, error }] = useLoginUserMutation()
@@ -16,14 +21,24 @@ const LoginPage = () => {
 
     const onSubmit = async (formdata) => {
         await userLogin(formdata)
-       
+
+
     }
     useEffect(() => {
         if (isError) {
             toast.error(error.data.message)
         }
-        if (isSuccess) {
+        if (isSuccess && data.data?.token) {
             localStorage.setItem("token", data.data?.token);
+            const userInfo = data.data?.user
+            dispatch(userLoggedIn({...userInfo}));
+            dispatch(userloading());
+
+            if (data.data?.user.role === 'admin') {
+                navigate('/dashboard')
+            } else {
+                navigate('/lessons')
+            }
             toast.success(data.message)
             reset()
         }

@@ -38,7 +38,7 @@ export const authApi = apiSlice.enhanceEndpoints({ addTagTypes: [] }).injectEndp
         /* user get  */
         getsingleVocabular: builder.query({
             query: (id) => ({
-                url: `/vocabulary/user/${id}`,
+                url: `/vocabulary/single/${id}`,
                 method: "GET",
             }),
             providesTags: ["vocabulary"],

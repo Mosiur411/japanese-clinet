@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { userloading, userLoggedOut } from "../../apps/features/auth/authSlice";
-import { useNavigate } from "react-router-dom";
 
-const ProfileMenu = () => {
-    const navigate=useNavigate()
+import { toast } from "react-toastify";
+import { Link } from "react-router";
+
+const ProfileMenu = ({ userInfo }) => {
     const dispatch = useDispatch();
 
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -36,19 +37,16 @@ const ProfileMenu = () => {
         localStorage.removeItem('token');
         dispatch(userLoggedOut());
         dispatch(userloading());
-        navigate('/')
+        toast.success("User Logout")
+
     }
-
-
-
-
-
-
+    console.log('userInfo', userInfo)
     return (
         <div>
             <div className="relative" ref={profileMenuRef}>
                 <img
-                    src="https://via.placeholder.com/40" // Replace with dynamic image URL
+                    src={userInfo?.profilePhoto ? userInfo?.profilePhoto : "https://via.placeholder.com/40"}
+
                     alt="Profile"
                     className="w-10 h-10 rounded-full cursor-pointer"
                     onClick={toggleProfileMenu}
@@ -56,11 +54,14 @@ const ProfileMenu = () => {
                 {isProfileMenuOpen && (
                     <div className="absolute right-0 mt-2 w-48 bg-white text-gray-800 shadow-lg rounded-lg">
                         <button
-                            className="block w-full px-4 py-2 text-left hover:bg-gray-100"
-                            onClick={() => alert("View Profile")}
+                            className="block w-full px-4 py-2 text-left hover:bg-gray-100 capitalize"
+                        /* onClick={() => alert("View Profile")} */
                         >
-                            View Profile
+                            {userInfo?.role}
                         </button>
+                        {
+                            userInfo?.role === 'admin' && <Link to="/dashboard" className="px-4 hover:underline">Dashboard</Link>
+                        }
                         <button
                             className="block w-full px-4 py-2 text-left hover:bg-gray-100"
                             onClick={() => Logout()}
@@ -74,4 +75,8 @@ const ProfileMenu = () => {
         </div>
     )
 }
-export default ProfileMenu
+
+function mapStateToProps(state) {
+    return { userInfo: state.auth?.userInfo }
+}
+export default connect(mapStateToProps, null)(ProfileMenu)
