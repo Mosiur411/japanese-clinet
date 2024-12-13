@@ -49,18 +49,44 @@ const AddVocabulary = ({ closeModal }) => {
                         <span className="text-red-500">{errors?.word?.message}</span>
                     )}
                 </div>
-
                 <div className="mb-4">
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                        Description  <span className="text-red-500">*</span>
+                    <label  className="block text-sm font-medium text-gray-700">
+                    meaning  <span className="text-red-500">*</span>
                     </label>
                     <input
                         type="text"
                         className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        {...register("description")}
+                        {...register("meaning")}
                     />
                     {errors && (
-                        <span className="text-red-500">{errors?.description?.message}</span>
+                        <span className="text-red-500">{errors?.meaning?.message}</span>
+                    )}
+                </div>
+                <div className="mb-4">
+                    <label  className="block text-sm font-medium text-gray-700">
+                    pronunciation  <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        {...register("pronunciation")}
+                    />
+                    {errors && (
+                        <span className="text-red-500">{errors?.pronunciation?.message}</span>
+                    )}
+                </div>
+
+                <div className="mb-4">
+                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                    When to say  <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        {...register("when_to_say")}
+                    />
+                    {errors && (
+                        <span className="text-red-500">{errors?.when_to_say?.message}</span>
                     )}
                 </div>
                 <div className="mb-4">

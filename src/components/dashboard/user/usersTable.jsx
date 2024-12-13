@@ -25,7 +25,7 @@ const UserTable = ({ data, isLoading, isError }) => {
     let content;
     if (isLoading) content = <Error message={"Loading..."} />;
     if (!isLoading && isError) {
-        content = <Loading message={"This Pages Is Empty."} />;
+        content = <Loading message={"This Pages items Is Empty."} />;
     }
     if (!isLoading && !isError && data?.length > 0) {
         content = data?.map((user, index) => (
